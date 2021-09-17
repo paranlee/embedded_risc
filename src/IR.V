@@ -52,13 +52,9 @@ module  IR # (
           IRInEn,
     input [DataWidth - 1 : 0] IRDataIn,
 
-    output [AddrWidth - 1 : 0] OperandOut,
-    output [OpcodeSize - 1 : 0] OpCodeOut
+    output reg [AddrWidth - 1 : 0] OperandOut,
+    output reg [OpcodeSize - 1 : 0] OpCodeOut
 );
-
-// Signal Declerations
-reg [AddrWidth - 1 : 0] OperandOut;
-reg [OpcodeSize - 1 : 0] OpCodeOut;
 
 always @ (posedge reset or negedge clock) begin
     if(reset == 1'b1) begin

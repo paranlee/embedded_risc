@@ -18,43 +18,27 @@
  California Unique Electric
 
 ***************************************************************************************/
- 
+
 `timescale 1ns / 1ps
 
-module PC (    // Input
-                clock,
-                reset,
-                PCInEn,
-                PCDataIn,
-                // Output
-                PCDataOut
-                );
+module PC # (
+    parameter AddrWidth = 24
+) (
+    input clock,
+    input reset,
+    input PCInEn,
+    input [AddrWidth - 1 : 0] PCDataIn,
 
-// Parameter
-parameter AddrWidth = 24;
+    output reg [AddrWidth - 1 : 0] PCDataOut
+);
 
-// Inputs
-input clock;
-input reset;
-input PCInEn;
-input [AddrWidth - 1 : 0] PCDataIn;
-
-// Outputs
-output [AddrWidth - 1 : 0] PCDataOut;
-
-// Signal Declerations
-reg [AddrWidth - 1 : 0] PCDataOut;
-
-
-// Main Block
-always @ (posedge reset or negedge clock)
-begin
+always @ (posedge reset or negedge clock) begin
     if(reset == 1'b1)
-         PCDataOut <= 24'h000;
+        PCDataOut <= 24'h000;
+    else if (PCInEn == 1'b1)
+        PCDataOut <= PCDataIn;
     else
-     if (PCInEn == 1'b1)
-       PCDataOut <= PCDataIn;
-    else
-       PCDataOut <= PCDataOut;
+        PCDataOut <= PCDataOut;
 end
+
 endmodule

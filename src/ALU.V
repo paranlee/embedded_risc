@@ -49,23 +49,23 @@ module ALU # (
              MAP = 9'h64,
 
             // Current State options
-             Init = 2'b00;
-             InstrFetch = 2'b01;
-             InstrExec  = 2'b10;
+             Init = 2'b00,
+             InstrFetch = 2'b01,
+             InstrExec  = 2'b10,
 
             // Function Select options
-             FnAdd    = 8'b0000_0000;
-             FnSub    = 8'b0000_0001;
-             FnPassB = 8'b0000_0010;
-             FnIncB    = 8'b0000_0011;
-             FnShtR    = 8'b0000_0100;
-             FnShtL    = 8'b0000_0101;
-             FnAnd    = 8'b0000_0110;
-             FnOr     = 8'b0000_0111;
-             FnXor    = 8'b0000_1000;
-             FnCom    = 8'b0000_1001;
-             FnSwp    = 8'b0000_1010;
-             FnNop   = 8'b0000_1011;
+             FnAdd   = 8'b0000_0000,
+             FnSub   = 8'b0000_0001,
+             FnPassB = 8'b0000_0010,
+             FnIncB  = 8'b0000_0011,
+             FnShtR  = 8'b0000_0100,
+             FnShtL  = 8'b0000_0101,
+             FnAnd   = 8'b0000_0110,
+             FnOr    = 8'b0000_0111,
+             FnXor   = 8'b0000_1000,
+             FnCom   = 8'b0000_1001,
+             FnSwp   = 8'b0000_1010,
+             FnNop   = 8'b0000_1011
 ) (
    input [DataWidth - 1 : 0] ALUSrcA,
                              ALUSrcB,
@@ -193,7 +193,7 @@ always @(AIn or BIn or CIn or FunctSel) begin
       FnOr     :  ALUDataOut <= AIn | BIn;
       FnXor    :  ALUDataOut <= AIn ^ BIn;
       FnCom    :  ALUDataOut <= ~BIn;
-      FnSwp    :  ALUDataOut <= {BIn[15:0],BIn[31:16]};
+      FnSwp    :  ALUDataOut <= {BIn[15:0], BIn[31:16]};
       FnNop    :  ALUDataOut <= BIn;
       default  :  ALUDataOut <= AIn + BIn;
    endcase

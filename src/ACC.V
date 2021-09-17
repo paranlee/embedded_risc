@@ -21,32 +21,19 @@
 
 `timescale 1ns / 1ps
 
-module ACC(
-    // Input
-    clock,
-    reset,
-    ACCInEn,
-    ACCDataIn,
+module ACC # (
+    parameter DataWidth = 32
+) (
+    input  clock,
+    input  reset,
+    input  ACCInEn,
+    input  [DataWidth - 1 : 0] ACCDataIn,
 
     // Output
-    ACCNeg,
-    ACCZero,
-    ACCDataOut
+    output  ACCNeg,
+    output  ACCZero,
+    output [DataWidth - 1 : 0] ACCDataOut
 );
-
-// Parameter
-parameter DataWidth = 32;
-
-// Input
-input  clock;
-input  reset;
-input  ACCInEn;
-input  [DataWidth - 1 : 0] ACCDataIn;
-
-// Output
-output  ACCNeg;
-output  ACCZero;
-output [DataWidth - 1 : 0] ACCDataOut;
 
 // Signal Declerations
 reg [DataWidth - 1 : 0] rACCDataOut;
@@ -72,8 +59,7 @@ assign ACCZero = ~(((((((((((((((
     (ACCDataOut[28] | ACCDataOut[29])) |
     (ACCDataOut[30] | ACCDataOut[31]));
 
-always @(posedge reset or negedge clock)
-begin
+always @(posedge reset or negedge clock) begin
     if(reset == 1'b1)
         rACCDataOut <= 32'h0000;
     else if(ACCInEn == 1'b1)

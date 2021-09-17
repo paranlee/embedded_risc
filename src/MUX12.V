@@ -31,7 +31,6 @@ module MUX12 # (
     output [AddrWidth - 1 : 0] Out
 );
 
-//Dataflow description of MUX12
 assign Out = A_Select ? A_in : B_in;
 
 endmodule

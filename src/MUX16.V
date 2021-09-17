@@ -21,27 +21,16 @@
  
 `timescale 1ns / 1ps
 
-module MUX16 (    // Input
-                    A_in,
-                    B_in,
-                    A_Select,
-                    // Output
-                    Out
-                    );
+module MUX16 # (
+    parameter DataWidth = 32,
+              AddrWidth = 24
+) (
+    input [AddrWidth - 1 : 0] A_in,
+    input [DataWidth - 1 : 0] B_in,
+    input A_Select,
 
-// Parameter
-parameter DataWidth = 32;
-parameter AddrWidth = 24;
-
-// Input
-input  [AddrWidth - 1 : 0]  A_in;
-input  [DataWidth - 1 : 0]  B_in;
-input  A_Select;
-
-// Output
-output [DataWidth - 1 : 0]  Out;
-
-//Dataflow description of MUX16
+    output [DataWidth - 1 : 0]  Out
+);
 
 assign Out = A_Select ? B_in : {8'b0, A_in};
 

@@ -20,42 +20,24 @@
 // DEFINES
 `timescale 1ns / 10ps
 
-module cmd_ack(// Input
-                    reset,
-                    clk0,
-                    cmack,
-                    load_time,
-                    load_rfcnt,
-                    // Output
-                    cmdack
-                    );
+`include "parameter.v"
 
+module cmd_ack(
+    // Input
+    input reset,
+    input clk0,
+    input cmack,
+    input load_time,
+    input load_rfcnt,
 
-// Parameter
-`include        "parameter.v"
-
-// Input
-input reset;
-input clk0;
-input cmack;
-input load_time;
-input load_rfcnt;
-
-// Output
-output cmdack;
-
-// Internal wire and reg signals
-reg cmdack;
-
-// Assignment
+    output reg cmdack
+);
 
 // Generating CMDACK Signal
-always @(posedge reset or posedge clk0)
-begin
+always @(posedge reset or posedge clk0) begin
     if(reset == 1'b1)
         cmdack <= 1'b0;
-    else
-    begin
+    else begin
         if(((cmack == 1'b1) | (load_time == 1'b1) | (load_rfcnt == 1'b1)) & (cmdack == 1'b0))
             cmdack <= 1'b1;
         else
